@@ -6,6 +6,8 @@ const { tasks } = defineProps(["tasks"]);
 
 <template>
   <section>
+    <h2>Tasks</h2>
+
     <TaskItem
       v-for="(task, index) in tasks"
       :key="task.id"
