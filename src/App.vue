@@ -14,9 +14,17 @@ function addTask(task) {
 }
 
 function deleteTask(taskId) {
-  const taskIndex = tasks.findIndex((task) => {
-    task.id === taskId;
-  });
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+  if (taskIndex === -1) {
+    taskDeleteMsg.value = "Task not found";
+
+    setTimeout(() => {
+      taskDeleteMsg.value = "";
+    }, 5000);
+
+    return;
+  }
 
   const removedTask = tasks.splice(taskIndex, 1);
 
