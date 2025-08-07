@@ -24,7 +24,7 @@ function getTask() {
     id: idCounter,
     name: newTask.value,
     description: newDesc.value,
-    isPriority: isNewPriority,
+    isPriority: isNewPriority.value,
     isComplete: false,
   };
 

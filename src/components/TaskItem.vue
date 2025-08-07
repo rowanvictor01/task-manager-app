@@ -13,8 +13,10 @@ function onDeleteClick() {
 
 <template>
   <section class="task-item">
-    <div>{{ task.name }}</div>
+    <span>{{ task.name }}</span>
+    <span v-if="task.isPriority"> - Priority</span>
     <div>{{ task.description }}</div>
+
     <button>Edit</button>
     <button @click="onDeleteClick">Delete</button>
   </section>
