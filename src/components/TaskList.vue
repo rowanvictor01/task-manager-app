@@ -13,6 +13,7 @@ const { tasks } = defineProps(["tasks"]);
       :key="task.id"
       :task="task"
       @delete-task="$emit('delete-task', $event)"
+      @toggle-task="$emit('toggle-task', $event)"
     />
   </section>
 </template>
