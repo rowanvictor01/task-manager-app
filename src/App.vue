@@ -2,39 +2,38 @@
 import { ref, reactive } from "vue";
 import Header from "./components/Header.vue";
 import TaskList from "./components/TaskList.vue";
+import AddTaskForm from "./components/AddTaskForm.vue";
 
 // data
 const tasks = reactive([]);
-const newTaskName = ref("");
-const newTaskDesc = ref("");
-let idCounter = 1;
+let taskDeleteMsg = ref("");
 
 // methods
-function addTask() {
-  const task = {
-    id: idCounter,
-    name: newTaskName.value,
-    description: newTaskDesc.value,
-    isPriority: false,
-    isComplete: false,
-  };
-
+function addTask(task) {
   tasks.push(task);
-  idCounter++;
-
-  newTaskName.value = "";
-  newTaskDesc.value = "";
 }
 
 function deleteTask(taskId) {
-  const taskIndex = tasks.findIndex((task) => {
-    task.id === taskId;
-  });
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+  if (taskIndex === -1) {
+    taskDeleteMsg.value = "Task not found";
+
+    setTimeout(() => {
+      taskDeleteMsg.value = "";
+    }, 5000);
+
+    return;
+  }
 
   const removedTask = tasks.splice(taskIndex, 1);
 
   // Task removed notif
-  console.log(`Task ${removedTask} was removed`);
+  taskDeleteMsg.value = `Task removed`;
+
+  setTimeout(() => {
+    taskDeleteMsg.value = "";
+  }, 3000);
 }
 
 function toggleComplete(taskId) {
@@ -56,7 +55,8 @@ function editTask() {
 
     <TaskList :tasks="tasks" @delete-task="deleteTask($event)" />
 
-    <section class="form"></section>
+    <AddTaskForm @get-task="addTask($event)" />
+    <div v-if="taskDeleteMsg">{{ taskDeleteMsg }}</div>
   </main>
 </template>
 
