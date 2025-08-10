@@ -101,14 +101,3 @@ function onCancelEdit() {
   </section>
   <!-- /task-item -->
 </template>
-
-<style scoped>
-section.task-item {
-  display: flex;
-  /* justify-content: center; */
-}
-
-.complete {
-  text-decoration: line-through;
-}
-</style>

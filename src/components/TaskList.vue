@@ -58,5 +58,3 @@ const filteredTasks = computed(() => {
     />
   </section>
 </template>
-
-<style scoped></style>

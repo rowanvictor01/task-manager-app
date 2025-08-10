@@ -103,5 +103,3 @@ function editTask(editedTask) {
     <div v-if="notif">{{ notif }}</div>
   </main>
 </template>
-
-<style scoped></style>
