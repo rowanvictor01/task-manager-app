@@ -54,6 +54,7 @@ const filteredTasks = computed(() => {
       :task="task"
       @delete-task="$emit('delete-task', $event)"
       @toggle-task="$emit('toggle-task', $event)"
+      @edit-task="$emit('edit-task', $event)"
     />
   </section>
 </template>

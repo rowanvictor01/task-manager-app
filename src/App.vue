@@ -59,23 +59,31 @@ function addTask(task) {
 }
 
 function deleteTask(taskId) {
-  const taskIndex = getIndex(taskId);
+  const index = getIndex(taskId);
 
-  const removedTask = tasks.splice(taskIndex, 1);
+  const removedTask = tasks.splice(index, 1);
 }
 
 function toggleComplete(taskId) {
-  const taskIndex = getIndex(taskId);
+  const index = getIndex(taskId);
 
-  if (tasks[taskIndex].isComplete) {
-    tasks[taskIndex].isComplete = false;
+  if (tasks[index].isComplete) {
+    tasks[index].isComplete = false;
   } else {
-    tasks[taskIndex].isComplete = true;
+    tasks[index].isComplete = true;
   }
 }
 
-function editTask() {
-  // will think about it
+function editTask(editedTask) {
+  const index = getIndex(editedTask.id);
+
+  tasks[index].name = editedTask.name ? editedTask.name : tasks[index].name;
+
+  tasks[index].description = editedTask.description
+    ? editedTask.description
+    : tasks[index].description;
+
+  tasks[index].isPriority = editedTask.isPriority;
 }
 </script>
 
@@ -87,6 +95,7 @@ function editTask() {
       :tasks="tasks"
       @delete-task="deleteTask($event)"
       @toggle-task="toggleComplete($event)"
+      @edit-task="editTask"
     />
 
     <AddTaskForm @get-task="addTask($event)" />
