@@ -1,8 +1,8 @@
 <script setup>
-// props
+// prop
 const { task } = defineProps(["task"]);
 
-// emits
+// emit
 const emit = defineEmits(["delete-task", "toggle-task"]);
 
 // methods
@@ -17,7 +17,12 @@ function onTaskToggle() {
 
 <template>
   <section class="task-item">
-    <input class="toggle-task" type="checkbox" @click="onTaskToggle" />
+    <input
+      class="toggle-task"
+      type="checkbox"
+      @click="onTaskToggle"
+      :checked="task.isComplete"
+    />
 
     <div>
       <div class="task-name">

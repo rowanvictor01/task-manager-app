@@ -2,35 +2,24 @@
 import { ref, computed } from "vue";
 import TaskItem from "./TaskItem.vue";
 
+// prop
 const { tasks } = defineProps(["tasks"]);
 
+// data
 const filter = ref("all");
 
-const incompleteTasks = computed(() => {
-  return tasks.filter((task) => !task.isComplete);
-});
-
-const priorityTasks = computed(() => {
-  return tasks.filter((task) => task.isPriority);
-});
-
-const completeTasks = computed(() => {
-  return tasks.filter((task) => task.isComplete);
-});
-
-function filterTask() {
+// method
+const filteredTasks = computed(() => {
   if (filter.value === "all") {
     return tasks;
   } else if (filter.value === "incomplete") {
-    return incompleteTasks;
+    return tasks.filter((task) => !task.isComplete);
   } else if (filter.value === "priority") {
-    return priorityTasks;
+    return tasks.filter((task) => task.isPriority);
   } else if (filter.value === "complete") {
-    return completeTasks;
-  } else {
-    return tasks;
+    return tasks.filter((task) => task.isComplete);
   }
-}
+});
 </script>
 
 <template>
@@ -38,17 +27,29 @@ function filterTask() {
     <h2>Tasks</h2>
 
     <div>
-      <select v-model="filter">
-        <option disabled>Filter Tasks</option>
-        <option value="all">All</option>
-        <option value="incomplete">Incomplete</option>
-        <option value="priority">Priority</option>
-        <option value="complete">Complete</option>
-      </select>
+      <label>
+        <input type="radio" name="filter" value="all" v-model="filter" />
+        All
+      </label>
+
+      <label>
+        <input type="radio" name="filter" value="incomplete" v-model="filter" />
+        Incomplete
+      </label>
+
+      <label>
+        <input type="radio" name="filter" value="priority" v-model="filter" />
+        Priority
+      </label>
+
+      <label>
+        <input type="radio" name="filter" value="complete" v-model="filter" />
+        Complete
+      </label>
     </div>
 
     <TaskItem
-      v-for="task in filterTask()"
+      v-for="task in filteredTasks"
       :key="task.id"
       :task="task"
       @delete-task="$emit('delete-task', $event)"
