@@ -26,6 +26,7 @@ function getTask() {
     description: newDesc.value,
     isPriority: isNewPriority.value,
     isComplete: false,
+    isEditMode: false,
   };
 
   // emit after assigning values
